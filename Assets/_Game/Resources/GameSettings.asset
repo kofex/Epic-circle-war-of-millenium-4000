@@ -19,3 +19,6 @@ MonoBehaviour:
   Prefabs:
   - {fileID: -2701492386134701127, guid: 168729708be02d74da3fdbce09ce6de1, type: 3}
   - {fileID: 2604152864852850318, guid: 2262fcaa354e6474cb2722001f155435, type: 3}
+  - {fileID: 1241496473284042469, guid: aa5225ce83ae5aa46923fec7db464745, type: 3}
+  BorderOffset: {x: 0.2, y: 0.2}
+  DeathRadius: 0.2

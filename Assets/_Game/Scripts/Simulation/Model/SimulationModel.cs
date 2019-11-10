@@ -5,6 +5,7 @@ using Scripts.Core.Interfaces;
 using Scripts.Core.Model;
 using Scripts.Core.Model.Base;
 using Scripts.Physics.Model;
+using Scripts.Simulation.Camera.Model;
 using Scripts.Simulation.Components;
 using Scripts.Simulation.Units.Model;
 
@@ -36,6 +37,9 @@ namespace Scripts.Simulation.Model
 
 			_teamModel = SimulationSingletons.TryAddSingletonModel(CreateModel<TeamModel<CircleUnit>>())
 				.InitModel();
+			SimulationSingletons.TryAddSingletonModel(CreateModel<CameraModel>())
+				.InitModel(_gameConfig.gameAreaWidth, _gameConfig.gameAreaHeight)
+				.SetView();
 
 			_updatableModels = SimulationSingletons.GetUpdatableModels();
 			

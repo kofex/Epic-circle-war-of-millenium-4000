@@ -14,6 +14,7 @@ namespace Scripts.Simulation.Model
 {
 	public class AreaModel : ModelBase, IModelWithVIew<AreaView>
 	{
+		private const string UNITS_ROOT_NAME = "Units Root";
 		public static event Action UnitsSpawned;
 		public static event Action<BorderRect> BordersCreated;
 
@@ -23,6 +24,8 @@ namespace Scripts.Simulation.Model
 
 		private BorderRect BorderRect { get; set; }
 		private Vector2 _offset;
+		private Transform _unitsRoot;
+		
 		//TODO: Подумать над спавном только в свободных местах
 		private List<Vector4> _bannedPositions;
 
@@ -32,6 +35,7 @@ namespace Scripts.Simulation.Model
 			ThisView = Object.Instantiate(prefab, parent).GetComponent<AreaView>();
 			ThisView.SetModel(this);
 			ConstructArea();
+			_unitsRoot = new GameObject(UNITS_ROOT_NAME).transform;
 			return View;
 		}
 
@@ -67,7 +71,7 @@ namespace Scripts.Simulation.Model
 				return;
 			}
 			unit.SetPosition(GetRandomPosWithinBorder(unit.Width * 0.5f, unit.Height * 0.5f));
-			unit.SetView();
+			unit.SetView(_unitsRoot);
 		}
 			
 		/// <summary>

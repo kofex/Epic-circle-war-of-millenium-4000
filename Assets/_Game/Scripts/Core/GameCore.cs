@@ -5,8 +5,7 @@ using UnityEngine;
 namespace Scripts.Core
 {
 	public class GameCore : MonoBehaviour
-	{
-		
+	{		
 		private static GameCore Instance { get; set; }
 		private MainModel _mainModel;
 		[SerializeField] [Range(0.0f, 10.0f)]private float _gameSpeed = 1.0f;
