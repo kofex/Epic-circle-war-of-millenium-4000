@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07ddda42f2d432ea524568fa6da9b70, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  TeamColors:
+  - {r: 0, g: 0.98099923, b: 1, a: 1}
+  - {r: 1, g: 0.08778779, b: 0.023584902, a: 1}
+  ExtConfigName: Configs.txt
+  Prefabs:
+  - {fileID: -2701492386134701127, guid: 168729708be02d74da3fdbce09ce6de1, type: 3}
+  - {fileID: 2604152864852850318, guid: 2262fcaa354e6474cb2722001f155435, type: 3}
