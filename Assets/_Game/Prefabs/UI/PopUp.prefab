@@ -520,6 +520,7 @@ GameObject:
   - component: {fileID: 2961589965699063235}
   - component: {fileID: 2961589965699063233}
   - component: {fileID: 2961589965699063232}
+  - component: {fileID: 5486856328256501050}
   m_Layer: 5
   m_Name: PopUp
   m_TagString: Untagged
@@ -589,3 +590,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5486856328256501050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2961589965699063234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa7b7eb7cb249348d018881a67feec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _winColoSprite: {fileID: 2961589964053762209}
+  _timeText: {fileID: 2961589963944104962}
+  _newGameBtn: {fileID: 2961589964833801862}
