@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace Scripts.Simulation.Model
 {
-	public class AreaModel : ModelBase, IModelWithVIew<AreaView>
+	public class AreaModel : ModelBase, IModelWithVIew<AreaView>, IRestartable
 	{
 		private const string UNITS_ROOT_NAME = "Units Root";
 		public static event Action UnitsSpawned;
@@ -27,12 +27,12 @@ namespace Scripts.Simulation.Model
 		private Transform _unitsRoot;
 		
 		//TODO: Подумать над спавном только в свободных местах
-		private List<Vector4> _bannedPositions;
+		private List<Vector4> _bannedPositions = new List<Vector4>();
 
 		public AreaView SetView(Transform parent)
 		{
 			var prefab = GameCore.GetModel<SettingsModel>().GameSettings.GetPefab<AreaView>();
-			ThisView = Object.Instantiate(prefab, parent).GetComponent<AreaView>();
+			ThisView = Object.Instantiate(prefab, parent);
 			ThisView.SetModel(this);
 			ConstructArea();
 			_unitsRoot = new GameObject(UNITS_ROOT_NAME).transform;
@@ -70,6 +70,7 @@ namespace Scripts.Simulation.Model
 				UnitsSpawned?.Invoke();
 				return;
 			}
+			
 			unit.SetPosition(GetRandomPosWithinBorder(unit.Width * 0.5f, unit.Height * 0.5f));
 			unit.SetView(_unitsRoot);
 		}
@@ -91,5 +92,9 @@ namespace Scripts.Simulation.Model
 			return new Vector2(Random.Range(xMin, xMax), Random.Range(yMin, yMax));
 		}
 
+		public void Restart()
+		{
+			_bannedPositions.Clear();
+		}
 	}
 }

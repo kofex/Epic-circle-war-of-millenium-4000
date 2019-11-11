@@ -1,3 +1,4 @@
+using System;
 using Scripts.Components;
 using Scripts.Configs;
 using Scripts.Core;
@@ -8,21 +9,28 @@ using Scripts.Physics.Model;
 using Scripts.Simulation.Camera.Model;
 using Scripts.Simulation.Components;
 using Scripts.Simulation.Units.Model;
+using UnityEngine;
 
 namespace Scripts.Simulation.Model
 {
-	public class SimulationModel : ModelBase, IUpdatable
+	public class SimulationModel : ModelBase, IUpdatable, IRestartable
 	{
-		protected SingletonModelsContainer SimulationSingletons { get; } = new SingletonModelsContainer();
+		public static Action SimulationRestartBegin;
+		public static Action<float, Color> SimulationEnd;
+		public static bool IsGameOver => _isGameOver;
+		private static bool _isGameOver;
 		
+		public SingletonModelsContainer SimulationSingletons { get; } = new SingletonModelsContainer();
+		
+
 		private GameConfig _gameConfig;
 		private CirclePhysics _physicsModel;
 		private AreaModel _areaModel;
-		private TeamModel<CircleUnit> _teamModel;
+		private TeamModel<CircleUnitModel> _teamModel;
 		private IUpdatable[] _updatableModels;
 		private bool _isSpawned;
 		private float _timer;
-		private bool _isGameOver;
+		private float _simulationTime;
 		
 		
 		public new SimulationModel InitModel()
@@ -33,9 +41,8 @@ namespace Scripts.Simulation.Model
 				.InitModel()
 				.SetView(null).Model;
 			AreaModel.UnitsSpawned += OnSpawnComplete;
-			Team<CircleUnit>.Lose += inx => _isGameOver = true; 
 
-			_teamModel = SimulationSingletons.TryAddSingletonModel(CreateModel<TeamModel<CircleUnit>>())
+			_teamModel = SimulationSingletons.TryAddSingletonModel(CreateModel<TeamModel<CircleUnitModel>>())
 				.InitModel();
 			SimulationSingletons.TryAddSingletonModel(CreateModel<CameraModel>())
 				.InitModel(_gameConfig.gameAreaWidth, _gameConfig.gameAreaHeight)
@@ -43,12 +50,17 @@ namespace Scripts.Simulation.Model
 
 			_updatableModels = SimulationSingletons.GetUpdatableModels();
 			
+			TeamBase.Lose += inx =>
+			{
+				_isGameOver = true;
+				SimulationEnd?.Invoke(_simulationTime, _teamModel.TheVictoriousTeam.TeamColor);
+			};
 			return this;
 		}
 
 		public void Update(float dt)
 		{
-			if(_isGameOver)
+			if (_isGameOver)
 				return;
 			
 			if (!_isSpawned)
@@ -63,6 +75,8 @@ namespace Scripts.Simulation.Model
 			{
 				model.Update((dt));
 			}
+
+			_simulationTime += dt;
 		}
 
 
@@ -76,10 +90,19 @@ namespace Scripts.Simulation.Model
 			_timer = 0;
 		}
 
-		private void OnSpawnComplete()
+		private void OnSpawnComplete() => _isSpawned = true;
+
+
+		public void Restart()
 		{
-			_isSpawned = true;
-			AreaModel.UnitsSpawned -= OnSpawnComplete;
+			SimulationRestartBegin?.Invoke();
+			
+			_isSpawned = false;
+			_isGameOver = false;
+			_simulationTime = 0f;
+			
+			foreach (var model in SimulationSingletons.GetRestartableModels())
+				model.Restart();
 		}
 	}
 }

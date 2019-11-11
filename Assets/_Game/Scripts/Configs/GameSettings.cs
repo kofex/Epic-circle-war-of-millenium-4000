@@ -12,6 +12,7 @@ namespace Scripts.Configs
 		public CacheBehaviour[] Prefabs;
 		public Vector2 BorderOffset;
 		public float DeathRadius = 0.2f;
+		public float UiOffset = 4.0f;
 
 		public T GetPefab<T>() where T : CacheBehaviour
 		{

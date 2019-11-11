@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scripts.Physics.Model
 {
-	public class CirclePhysics : PhysicsModel<CircleUnit>
+	public class CirclePhysics : PhysicsModel<CircleUnitModel>
 	{
 		public new CirclePhysics InitModel()
 		{

@@ -9,15 +9,14 @@ using Random = UnityEngine.Random;
 
 namespace Scripts.Simulation.Units.Model
 {
-	public class CircleUnit : UnitModel
+	public class CircleUnitModel : UnitModel
 	{
-		protected static int ID;
-		
+		public int UnitId { get; protected set; }
 		public float Radius { get; protected set; }
 		private float radiusToDeath;
-		private int _thisID;
 		
-		public new CircleUnit InitModel(SettingsModel settings)
+		
+		public new CircleUnitModel InitModel(SettingsModel settings)
 		{
 			var configs = settings.GameConfigs.GameConfig;
 			Radius = Random.Range(configs.minUnitRadius, configs.maxUnitRadius);
@@ -27,14 +26,15 @@ namespace Scripts.Simulation.Units.Model
 			CurrentSpeed = Speed;
 			Width = Height = Radius * 2f;
 			TeamModelBase.UpdateEnd += CheckForDeath;
+			base.InitModel(settings);
 			return this;
 		}
 		
 		public override UnitView SetView(Transform parent = null)
 		{
 			var prefab = GameCore.GetModel<SettingsModel>().GameSettings.GetPefab<UnitView>();
-			ThisView = Object.Instantiate(prefab, parent).GetComponent<UnitView>();
-			ThisView.name = $"Circle {_thisID = ID++}";
+			ThisView = Object.Instantiate(prefab, parent);
+			ThisView.name = $"Circle {UnitId = ID++}";
 			ThisView.SetModel(this);
 			SetupUnit();
 			return View;
@@ -45,11 +45,6 @@ namespace Scripts.Simulation.Units.Model
 			View.transform.position = Position;
 			View.SpriteRenderer.color = Color;
 			View.transform.localScale = new Vector3(Width, Height, View.transform.localScale.z);
-		}
-
-		public override void Update(float dt)
-		{
-			base.Update(dt);
 		}
 
 		private void CheckForDeath()
@@ -69,7 +64,7 @@ namespace Scripts.Simulation.Units.Model
 			if (other == null || other.GetType() != GetType())
 				return;
 			
-			var otherUnit = other as CircleUnit;
+			var otherUnit = other as CircleUnitModel;
 			if(otherUnit.Color == Color)
 				return;
 			

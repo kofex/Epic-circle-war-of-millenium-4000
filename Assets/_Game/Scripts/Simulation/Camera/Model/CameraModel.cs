@@ -18,9 +18,10 @@ namespace Scripts.Simulation.Camera.Model
         
         public CameraView SetView(Transform parent = null)
         {
-            var cameraPref = GameCore.GetModel<SettingsModel>().GameSettings.GetPefab<CameraView>();
-            _thisView = Object.Instantiate(cameraPref, parent).GetComponent<CameraView>();
-            CalculateHeight();
+            var settings = GameCore.GetModel<SettingsModel>().GameSettings;
+            var cameraPref = settings.GetPefab<CameraView>();
+            _thisView = Object.Instantiate(cameraPref, parent);
+            CalculateOrthSize(settings.UiOffset);
             return View;
         }
 
@@ -31,9 +32,9 @@ namespace Scripts.Simulation.Camera.Model
             return this;
         }
 
-        private void CalculateHeight()
+        private void CalculateOrthSize(float uiOffset = 0)
         {
-            View.ThisCamera.orthographicSize = _gameAreaHeight * 0.5f;
+            View.ThisCamera.orthographicSize = _gameAreaHeight * 0.5f + uiOffset; 
             View.transform.position = new Vector3(_gameAreaWidth * 0.5f, _gameAreaHeight * 0.5f, -5f);
         }
     }

@@ -2,23 +2,26 @@ using System;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Model;
 using Scripts.Physics.Interface;
+using Scripts.Simulation.Model;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Scripts.Simulation.Units.Model
 {
-	public class UnitModel : UnitModelBase, IModelWithVIew<UnitView>, IUpdatable, IPhysics
+	public class UnitModel : UnitModelBase, IModelWithVIew<UnitView>, IUpdatable, IPhysics, IRestartable
 	{
 		public static event Action<UnitModel> UnitDeath;
+		protected static int ID;
+		
 		public UnitView View => ThisView;
-		protected UnitView ThisView;
-		
-		public Color Color { get; protected set; }
-		
+		protected Color Color { get; private set; }
 		public void SetColor(Color color) => Color = color;
+		
+		protected UnitView ThisView;
 
-		public UnitModel InitModel(SettingsModel settings)
+		protected UnitModel InitModel(SettingsModel settings)
 		{
+			SimulationModel.SimulationRestartBegin += () => ID = 0;
 			InitModel();
 			return this;
 		}
@@ -36,8 +39,13 @@ namespace Scripts.Simulation.Units.Model
 		
 		protected virtual void OnDeath()
 		{
-			Object.Destroy(View.gameObject);
 			UnitDeath?.Invoke(this);
+			Object.Destroy(View.gameObject);
+		}
+
+		public virtual void Restart()
+		{
+			Object.Destroy(View.gameObject);
 		}
 	}
 }

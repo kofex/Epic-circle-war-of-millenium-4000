@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Scripts.Core.Model.Base;
+using Scripts.Simulation;
 using Scripts.Simulation.Model;
 using Scripts.Simulation.Units.Model;
 using UnityEngine;
 
 namespace Scripts.Physics.Model
 {
-	public class PhysicsModel<TUnit> : PhysicsBase where TUnit : UnitModel, new()
+	public class PhysicsModel<TUnit> : PhysicsBase, IRestartable where TUnit : UnitModel, new()
 	{
 		protected BorderRect BorderRect;
 		protected List<TUnit> Units = new List<TUnit>();
@@ -49,6 +50,11 @@ namespace Scripts.Physics.Model
 		{
 			if(Units.Contains(unit))
 				Units.Remove(unit);
+		}
+
+		public void Restart()
+		{
+			Units.Clear();
 		}
 	}
 }

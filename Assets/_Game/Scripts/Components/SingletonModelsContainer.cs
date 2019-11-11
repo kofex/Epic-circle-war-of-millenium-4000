@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Model.Base;
+using Scripts.Simulation;
 
 namespace Scripts.Components
 {
@@ -44,12 +45,10 @@ namespace Scripts.Components
 			return null;
 		}
 
-		public IUpdatable[] GetUpdatableModels()
-		{
-			var a = SingletonModels.Where(pairs => pairs.Value is IUpdatable);
-			var b = a.Select(pairs => pairs.Value as IUpdatable).ToArray();
-			return b;
-			//return SingletonModels.Where(pairs => pairs.Value is IUpdatable).Select(pairs => pairs.Value).ToArray() as IUpdatable[];
-		}
+		public IUpdatable[] GetUpdatableModels() => SingletonModels.Where(pairs => pairs.Value is IUpdatable)
+			.Select(pairs => pairs.Value as IUpdatable).ToArray().ToArray();
+		
+		public IRestartable[] GetRestartableModels() => SingletonModels.Where(pairs => pairs.Value is IRestartable)
+			.Select(pairs => pairs.Value as IRestartable).ToArray().ToArray();
 	}
 }

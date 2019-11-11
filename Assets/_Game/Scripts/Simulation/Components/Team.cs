@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Scripts.Simulation.Model;
 using Scripts.Simulation.Units.Model;
 using UnityEngine;
 
 namespace Scripts.Simulation.Components
 {
-	public class Team <TUnit> where TUnit : UnitModel
+	public class Team <TUnit> : TeamBase where TUnit : UnitModel
 	{
-		public static event Action<int> Lose;
-
-		public int ID { get; }
 		public List<TUnit> Units { get; } = new List<TUnit>();
 		public Color TeamColor { get; }
 		
@@ -17,7 +15,7 @@ namespace Scripts.Simulation.Components
 		{
 			TeamColor = color;
 			ID = inx;
-			UnitModel.UnitDeath += (unit)=> RemoveUnit(unit as TUnit);
+			UnitModel.UnitDeath += RemoveUnit;
 		}
 		
 		public bool TryAddUnit(TUnit unit)
@@ -29,14 +27,28 @@ namespace Scripts.Simulation.Components
 			Units.Add(unit);
 			return true;
 		}
+		
+		private void RemoveUnit(UnitModel unit) => RemoveUnit(unit as TUnit);
+		
 
-		public void RemoveUnit(TUnit unit)
+		private void RemoveUnit(TUnit unit)
 		{
 			if(Units.Contains(unit))
 				Units.Remove(unit);
 			if(Units.Count == 0)
-				Lose?.Invoke(ID);
+				TeamLose();
 		}
 
+		public override void Restart()
+		{
+			UnitModel.UnitDeath -= RemoveUnit;
+			
+			foreach (var unit in Units)
+				unit.Restart();
+			
+			Units.Clear();
+					
+			base.Restart();
+		}
 	}
 }

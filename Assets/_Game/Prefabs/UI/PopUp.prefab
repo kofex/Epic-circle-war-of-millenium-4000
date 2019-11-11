@@ -307,7 +307,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Blue win:'
+  m_Text: 'Victorious color:'
 --- !u!1 &2961589964833801880
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 2961589964833801860}
   - component: {fileID: 2961589964833801863}
   - component: {fileID: 2961589964833801862}
+  - component: {fileID: 5525984526216220233}
   m_Layer: 5
   m_Name: Btn Again
   m_TagString: Untagged
@@ -430,6 +431,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &5525984526216220233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2961589964833801880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8251644394412f9624808186af42f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 2961589965648327005}
 --- !u!1 &2961589965648327007
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +535,7 @@ GameObject:
   - component: {fileID: 2961589965699063233}
   - component: {fileID: 2961589965699063232}
   - component: {fileID: 5486856328256501050}
+  - component: {fileID: 6542260103951350132}
   m_Layer: 5
   m_Name: PopUp
   m_TagString: Untagged
@@ -602,6 +617,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa7b7eb7cb249348d018881a67feec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _newGameBtn: {fileID: 5525984526216220233}
   _winColoSprite: {fileID: 2961589964053762209}
   _timeText: {fileID: 2961589963944104962}
-  _newGameBtn: {fileID: 2961589964833801862}
+--- !u!225 &6542260103951350132
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2961589965699063234}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

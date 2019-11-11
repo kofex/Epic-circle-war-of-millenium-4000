@@ -24,26 +24,35 @@ namespace Scripts.Simulation.Model
 		{
 			_gameResources = GameCore.GetModel<SettingsModel>();
 			MaxUnits = _gameResources.GameConfigs.GameConfig.numUnitsToSpawn;
-			var colors = _gameResources.GameSettings.TeamColors;
-
-			var inx = 0;
-			Teams.Add(new Team<TUnit>(colors[0], inx++));
-			Teams.Add(new Team<TUnit>(colors[1], inx++));
-
+			
+			CreateTeams();
 			PrepareCircleUnits();
 			
 			AreaModel.UnitsSpawned += OnSpawnCompleted;
-			Team<TUnit>.Lose += OnTeamLose;
+			TeamBase.Lose += OnTeamLose;
 			return this;
 		}
 
-		//TODO: решить вопрос с T
+		private void CreateTeams()
+		{
+			var colors = _gameResources.GameSettings.TeamColors;
+			var inx = 0;
+			Teams.Add(new Team<TUnit>(colors[0], inx++));
+			Teams.Add(new Team<TUnit>(colors[1], inx++));
+		}
+
+		//TODO: решить вопрос с CreateModel<CircleUnitModel>() (нужно так: CreateModel<TUnit>() )
 		private void PrepareCircleUnits()
 		{
 			for (var i = 0; i < MaxUnits; i++)
 			{
-				var unitModel = CreateModel<CircleUnit>().InitModel(_gameResources);
-				Teams[i % 2 == 0 ? 0 : 1].TryAddUnit(unitModel as TUnit);
+				var unitModel = CreateModel<CircleUnitModel>().InitModel(_gameResources);
+				if (!Teams[i % 2 == 0 ? 0 : 1].TryAddUnit(unitModel as TUnit))
+				{
+					Debug.Log($"{unitModel.UnitId} is already exists", LogType.Warning);
+					continue;
+				}
+					
 				UnitAdded?.Invoke(unitModel as TUnit);
 			}
 		}
@@ -73,9 +82,23 @@ namespace Scripts.Simulation.Model
 
 		private void OnTeamLose(int id)
 		{
-			Teams.RemoveAt(id);
-			TheVictoriousTeam = Teams.FirstOrDefault();
-			Debug.Log($"Victory to {TheVictoriousTeam.ID}");
+			TheVictoriousTeam = Teams.FirstOrDefault(team => !team.HasLoose);
+			Debug.Log($"Victory to {TheVictoriousTeam?.ID}");
+		}
+
+		public override void Restart()
+		{
+			foreach (var team in Teams)
+				team.Restart();
+			
+			Teams.Clear();
+
+			_canMove = false;
+			_nextTeamInx = 0;
+			_nextUnitInx = 0;
+			
+			CreateTeams();
+			PrepareCircleUnits();
 		}
 	}
 }
