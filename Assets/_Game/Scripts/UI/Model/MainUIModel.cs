@@ -7,6 +7,10 @@ namespace Scripts.UI.Model
 {
 	public class MainUIModel : UIModel
 	{
+		private const string NEW_BTN = "NEW";
+		private const string SAVE_BTN = "SAVE";
+		private const string LOAD_BTN = "LOAD";
+		
 		private MainUIView _thisView;
 		public new MainUIView View => _thisView;
 		
@@ -18,6 +22,7 @@ namespace Scripts.UI.Model
 		public new MainUIView SetView(Transform parent = null)
 		{
 			_thisView = GameCore.GetModel<SettingsModel>().GameSettings.GetPefab<MainUIView>();
+			View.PopUp.Model.InitModel();
 			return View;
 		}
 
