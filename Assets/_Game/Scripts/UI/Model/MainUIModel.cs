@@ -2,6 +2,7 @@ using System;
 using Scripts.Core;
 using Scripts.Core.Model;
 using Scripts.Simulation.Model;
+using Scripts.Simulation.Units.Model;
 using Scripts.UI.View;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -15,9 +16,11 @@ namespace Scripts.UI.Model
 		private const string NEW_BTN = "NEW";
 		private const string SAVE_BTN = "SAVE";
 		private const string LOAD_BTN = "LOAD";
+		private float _maxTeamBalanceWidth;
 		
 		public new MainUIModel InitModel()
 		{
+			TeamModel<CircleUnitModel>.UnitCountChange += SetTeamsBalance; 
 			return this;
 		}
 		
@@ -27,6 +30,10 @@ namespace Scripts.UI.Model
 			ThisView = Object.Instantiate(prefab, parent);
 			View.SetModel(this);
 			var popUpModel = CreateModel<PopUpModel>().InitModel(this).SetView(View.transform).Model;
+			_maxTeamBalanceWidth = View.TeamFront.rectTransform.sizeDelta.x;
+			var teams = GameCore.GetModelFromSimulations<TeamModel<CircleUnitModel>>().Teams;
+			View.TeamFront.color = teams[0].TeamColor;
+			View.TeamBack.color = teams[1].TeamColor;
 			
 			SimulationModel.SimulationEnd += popUpModel.Pop;
 			SetButtons();
@@ -43,9 +50,12 @@ namespace Scripts.UI.Model
 			View.LoadGameBtn.SetTest(LOAD_BTN);
 		}
 
-		private void SetTeamsBalance()
+		private void SetTeamsBalance(int teamCountOne, int teamCountTwo)
 		{
-			//TODO: Динамическая полоска сил
+			var rectTransform = View.TeamFront.rectTransform;
+			var size = rectTransform.sizeDelta;
+			size.x = _maxTeamBalanceWidth * teamCountOne / (teamCountOne + teamCountTwo);
+			rectTransform.sizeDelta = size;
 		}
 
 	}

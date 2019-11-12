@@ -11,7 +11,8 @@ namespace Scripts.Simulation.Model
 	public class TeamModel<TUnit> : TeamModelBase where TUnit : UnitModel, new()
 	{
 		public Team<TUnit> TheVictoriousTeam;
-		public static event Action<TUnit> UnitAdded; 
+		public static event Action<TUnit> UnitAdded;
+		public static event Action<int, int> UnitCountChange;
 		public List<Team<TUnit>> Teams { get; } = new List<Team<TUnit>>();
 		public int MaxUnits { get; private set; }
 		private int _nextUnitInx;
@@ -19,17 +20,18 @@ namespace Scripts.Simulation.Model
 		private bool _canMove;
 
 		private SettingsModel _gameResources;
-		
+
 		public new TeamModel<TUnit> InitModel()
 		{
 			_gameResources = GameCore.GetModel<SettingsModel>();
 			MaxUnits = _gameResources.GameConfigs.GameConfig.numUnitsToSpawn;
-			
+
 			CreateTeams();
 			PrepareCircleUnits();
-			
+
 			AreaModel.UnitsSpawned += OnSpawnCompleted;
 			TeamBase.Lose += OnTeamLose;
+			UnitModel.UnitDeath += (unit) => UnitCountChange?.Invoke(Teams[0].Units.Count, Teams[1].Units.Count);
 			return this;
 		}
 
@@ -52,12 +54,18 @@ namespace Scripts.Simulation.Model
 					Debug.Log($"{unitModel.UnitId} is already exists", LogType.Warning);
 					continue;
 				}
-					
+
 				UnitAdded?.Invoke(unitModel as TUnit);
 			}
 		}
 
-		public UnitModel GetNextUnit()
+		private void OnUnitAdded(TUnit unitModel)
+		{
+			UnitAdded?.Invoke(unitModel);
+			UnitCountChange?.Invoke(Teams[0].Units.Count, Teams[1].Units.Count);
+		}
+
+	public UnitModel GetNextUnit()
 		{
 			if (_nextUnitInx >= Teams[0].Units.Count || _nextUnitInx >= Teams[1].Units.Count)
 				return null;

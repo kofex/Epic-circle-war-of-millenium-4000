@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Scripts.Components.SingletonModelsContainer" Collapsed="true">
+    <Position X="3.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAQIAAAAAAAAgAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Components\SingletonModelsContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Configs.GameConfigs" Collapsed="true">
+    <Position X="9.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Configs\GameConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Configs.GameConfig" Collapsed="true">
+    <Position X="11" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAgAAAQAAAAABAAAQAAAIAAAAAgAIAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Configs\GameConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Configs.GameSettings" Collapsed="true">
+    <Position X="9.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAABAABAAAAQAAAAAAQAACAAgAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Configs\GameSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Core.GameCore" Collapsed="true">
+    <Position X="0.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACAAAAAAAAAAAAAACAAIAAAQAAAAAAAAEQ=</HashCode>
+      <FileName>Assets\_Game\Scripts\Core\GameCore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Core.Model.SettingsModel" Collapsed="true">
+    <Position X="4.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAIAAAAAAAACAAAAAAAAAAAAAAgAIAgA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Core\Model\GameResourcesModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Core.Model.MainModel" Collapsed="true">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Core\Model\MainModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scripts.Physics.Model.CirclePhysics" Collapsed="true">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Physics\Model\CirclePhysics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Simulation.Camera.Model.CameraModel" Collapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAIAABACAQAAAAQAAIAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Camera\Model\CameraModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scripts.Simulation.Camera.View.CameraView" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Camera\View\CameraView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Simulation.Components.Team&lt;TUnit&gt;" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAEAAAAAAAAAAAAASAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Components\Team.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Simulation.Model.AreaModel" Collapsed="true">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAAIAAAAABAAAAAIAoAEAAAAAABAgAwAAAAAAAYEAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Model\AreaModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scripts.Simulation.Model.SimulationModel" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAECEgEIAAAAAIwIAAAQAABAAAAgAAAACIAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Model\SimulationModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scripts.Simulation.Model.TeamModel&lt;TUnit&gt;" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAwACIAAAAAAAAAAgIEAAAgAAAoAACBAAAAAAAAIAIQ=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Model\TeamModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Simulation.Units.Model.CircleUnitModel" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAJQAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAEAAAMAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Units\Model\CircleUnit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Simulation.View.AreaView" Collapsed="true">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\View\AreaView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Tests.Border" Collapsed="true">
+    <Position X="5.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Tests\Border.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.CustomLogger" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Tools\CustomLogger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scripts.Debug" Collapsed="true">
+    <Position X="7.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Tools\Debug.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Tools.UnityExtensions" Collapsed="true">
+    <Position X="7.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Tools\UnityExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.UI.Components.ButtonWithText" Collapsed="true">
+    <Position X="1.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAABAAAIAAAAAAAIAAIAAIAAAACAABAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\UI\Components\ButtonWithText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.UI.Model.MainUIModel" Collapsed="true">
+    <Position X="6" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAABAAAAAgAAAAAAAAAAABCAAQAEAEAAAIAQA=</HashCode>
+      <FileName>Assets\_Game\Scripts\UI\Model\MainUIModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.UI.Model.PopUpModel" Collapsed="true">
+    <Position X="3.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAQBAAAAAEAAAACAAAAQAAAAIIAIAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\UI\Model\PopUpModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.UI.Model.UIModel&lt;TView&gt;" Collapsed="true">
+    <Position X="4.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAABAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\UI\Model\UIModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Scripts.UI.View.MainUIView" Collapsed="true">
+    <Position X="7.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EABAABBAAAAAQAAAAACAAAIAAAAgABAAAAAAAAQEIAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\UI\View\MainUIView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.UI.View.PopUpView" Collapsed="true">
+    <Position X="2.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAADAAIAAAAAAAAAAQBEAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\UI\View\PopUpView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scripts.Core.Model.UnitView" Collapsed="true">
+    <Position X="11" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Units\View\UnitView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Scripts.Simulation.Model.BorderRect" Collapsed="true">
+    <Position X="5.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\Model\BorderRect.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Scripts.Core.Interfaces.IInitiable&lt;TModel&gt;" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Core\Interfaces\IInitiable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Scripts.Core.Interfaces.IModelWithVIew&lt;TView&gt;" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Core\Interfaces\IModelWithVIew.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Scripts.Core.Interfaces.IUpdatable" Collapsed="true">
+    <Position X="2.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Core\Interfaces\IUpdatable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Scripts.Physics.Interface.IPhysics" Collapsed="true">
+    <Position X="4.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Physics\Interface\IPhysics.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Scripts.Simulation.IRestartable" Collapsed="true">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Simulation\IRestartable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Scripts.ILogger" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Tools\ILogger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Scripts.LogType" Collapsed="true">
+    <Position X="7.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAAEEAAAA=</HashCode>
+      <FileName>Assets\_Game\Scripts\Tools\ILogger.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -579,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400.2, y: 0}
+  m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6542260102944615257
 CanvasRenderer:
@@ -1121,6 +1121,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6542260103289751859}
     m_Modifications:
+    - target: {fileID: 2961589965699063234, guid: ae81362131ac92547a049e1af71794da,
+        type: 3}
+      propertyPath: m_Name
+      value: PopUp
+      objectReference: {fileID: 0}
     - target: {fileID: 2961589965699063235, guid: ae81362131ac92547a049e1af71794da,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1225,11 +1230,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2961589965699063234, guid: ae81362131ac92547a049e1af71794da,
-        type: 3}
-      propertyPath: m_Name
-      value: PopUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae81362131ac92547a049e1af71794da, type: 3}

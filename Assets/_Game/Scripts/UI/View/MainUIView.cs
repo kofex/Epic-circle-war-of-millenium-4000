@@ -24,5 +24,6 @@ namespace Scripts.UI.View
 		
 		[SerializeField] private PopUpView _popUp;
 		public PopUpView PopUp => _popUp;
+		 
 	}
 }
