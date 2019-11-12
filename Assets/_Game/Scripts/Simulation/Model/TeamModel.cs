@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Scripts.Core;
 using Scripts.Core.Model;
+using Scripts.Serialization.Containers;
 using Scripts.Simulation.Components;
 using Scripts.Simulation.Units.Model;
+using Scripts.UI.Model;
+using UnityEngine;
 
 namespace Scripts.Simulation.Model
 {
-	public class TeamModel<TUnit> : TeamModelBase where TUnit : UnitModel, new()
+	public class TeamsModel<TUnit> : TeamsModelBase where TUnit : UnitModel, new()
 	{
 		public Team<TUnit> TheVictoriousTeam;
 		public static event Action<TUnit> UnitAdded;
@@ -21,7 +24,7 @@ namespace Scripts.Simulation.Model
 
 		private SettingsModel _gameResources;
 
-		public new TeamModel<TUnit> InitModel()
+		public new TeamsModel<TUnit> InitModel()
 		{
 			_gameResources = GameCore.GetModel<SettingsModel>();
 			MaxUnits = _gameResources.GameConfigs.GameConfig.numUnitsToSpawn;
@@ -59,13 +62,7 @@ namespace Scripts.Simulation.Model
 			}
 		}
 
-		private void OnUnitAdded(TUnit unitModel)
-		{
-			UnitAdded?.Invoke(unitModel);
-			UnitCountChange?.Invoke(Teams[0].Units.Count, Teams[1].Units.Count);
-		}
-
-	public UnitModel GetNextUnit()
+		public UnitModel GetNextUnit()
 		{
 			if (_nextUnitInx >= Teams[0].Units.Count || _nextUnitInx >= Teams[1].Units.Count)
 				return null;
@@ -94,19 +91,37 @@ namespace Scripts.Simulation.Model
 			Debug.Log($"Victory to {TheVictoriousTeam?.ID}");
 		}
 
-		public override void Restart()
+		public override void SetDefault()
 		{
 			foreach (var team in Teams)
-				team.Restart();
+				team.SetDefault();
 			
 			Teams.Clear();
 
 			_canMove = false;
 			_nextTeamInx = 0;
-			_nextUnitInx = 0;
-			
+			_nextUnitInx = 0;	
+		}
+
+		public override void Restart()
+		{
+			SetDefault();
 			CreateTeams();
 			PrepareCircleUnits();
+		}
+
+		public void SetSerializedTeams(List<TeamSerializationContainer> teams)
+		{
+			var inx = 0;
+			foreach (var team in teams)
+			{
+				var col = $"#{team.TeamColor}";
+				ColorUtility.TryParseHtmlString(col, out var color);
+				var deserializedTeam = new Team<TUnit>(color, inx++);
+				deserializedTeam.Deserialize(team, (unit) => UnitAdded?.Invoke(unit));
+				Teams.Add(deserializedTeam);
+			}
+			
 		}
 	}
 }

@@ -2,13 +2,15 @@ using System;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Model;
 using Scripts.Physics.Interface;
+using Scripts.Serialization.Containers;
 using Scripts.Simulation.Model;
+using Scripts.UI.Model;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Scripts.Simulation.Units.Model
 {
-	public class UnitModel : UnitModelBase, IModelWithVIew<UnitView>, IUpdatable, IPhysics, IRestartable
+	public class UnitModel : UnitModelBase, IModelWithVIew<UnitView>, IUpdatable, IPhysics, IRestartable, ISerializableContainer<UnitSerializationContainer>
 	{
 		public static event Action<UnitModel> UnitDeath;
 		protected static int ID;
@@ -19,12 +21,11 @@ namespace Scripts.Simulation.Units.Model
 		
 		protected UnitView ThisView;
 
-		protected UnitModel InitModel(SettingsModel settings)
+		private new void InitModel()
 		{
-			SimulationModel.SimulationRestartBegin += () => ID = 0;
-			InitModel();
-			return this;
 		}
+
+		public static void RestId()=> ID = 0;
 
 		public virtual UnitView SetView(Transform parent = null) => View;
 
@@ -43,9 +44,23 @@ namespace Scripts.Simulation.Units.Model
 			Object.Destroy(View.gameObject);
 		}
 
+		public void SetDefault()
+		{
+		}
+
 		public virtual void Restart()
 		{
-			Object.Destroy(View.gameObject);
+			SetDefault();
+			Object.Destroy(View.gameObject);	
+		}
+
+		public virtual UnitSerializationContainer Serialize()
+		{
+			return new UnitSerializationContainer();
+		}
+
+		public virtual void Deserialize(UnitSerializationContainer container)
+		{
 		}
 	}
 }

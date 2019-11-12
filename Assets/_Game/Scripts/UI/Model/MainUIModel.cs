@@ -20,7 +20,7 @@ namespace Scripts.UI.Model
 		
 		public new MainUIModel InitModel()
 		{
-			TeamModel<CircleUnitModel>.UnitCountChange += SetTeamsBalance; 
+			TeamsModel<CircleUnitModel>.UnitCountChange += SetTeamsBalance; 
 			return this;
 		}
 		
@@ -31,9 +31,10 @@ namespace Scripts.UI.Model
 			View.SetModel(this);
 			var popUpModel = CreateModel<PopUpModel>().InitModel(this).SetView(View.transform).Model;
 			_maxTeamBalanceWidth = View.TeamFront.rectTransform.sizeDelta.x;
-			var teams = GameCore.GetModelFromSimulations<TeamModel<CircleUnitModel>>().Teams;
+			var teams = GameCore.GetModelFromSimulations<TeamsModel<CircleUnitModel>>().Teams;
 			View.TeamFront.color = teams[0].TeamColor;
 			View.TeamBack.color = teams[1].TeamColor;
+			SetTeamsBalance(teams[0].Units.Count, teams[1].Units.Count);
 			
 			SimulationModel.SimulationEnd += popUpModel.Pop;
 			SetButtons();

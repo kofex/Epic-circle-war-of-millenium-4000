@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Scripts.Core.Model.Base;
+using Scripts.Serialization.Containers;
 using Scripts.Simulation.Model;
 using Scripts.Simulation.Units.Model;
+using Scripts.UI.Model;
 using UnityEngine;
 
 namespace Scripts.Simulation.Components
 {
-	public class Team <TUnit> : TeamBase where TUnit : UnitModel
+	public class Team <TUnit> : TeamBase, ISerializableContainer<TeamSerializationContainer> where TUnit : UnitModel, new()
 	{
 		public List<TUnit> Units { get; } = new List<TUnit>();
 		public Color TeamColor { get; }
@@ -39,7 +42,7 @@ namespace Scripts.Simulation.Components
 				TeamLose();
 		}
 
-		public override void Restart()
+		public override void SetDefault()
 		{
 			UnitModel.UnitDeath -= RemoveUnit;
 			
@@ -47,8 +50,37 @@ namespace Scripts.Simulation.Components
 				unit.Restart();
 			
 			Units.Clear();
-					
+			base.SetDefault();
+		}
+
+		public override void Restart()
+		{
+			SetDefault();
 			base.Restart();
+		}
+
+		public TeamSerializationContainer Serialize()
+		{
+			var units = new List<UnitSerializationContainer>();
+			foreach (var unit in Units)
+				units.Add(unit.Serialize());
+					
+			return new TeamSerializationContainer(ColorUtility.ToHtmlStringRGB(TeamColor), units);
+		}
+
+		public void Deserialize(TeamSerializationContainer container)
+		{
+		}
+
+		public void Deserialize(TeamSerializationContainer container, Action<TUnit> onUnitAdded)
+		{
+			foreach (var unit in container.Units)
+			{
+				var deserializedUnit = ModelBase.CreateModel<TUnit>();
+				deserializedUnit.Deserialize(unit);
+				TryAddUnit(deserializedUnit);
+				onUnitAdded?.Invoke(deserializedUnit);
+			} 
 		}
 	}
 }

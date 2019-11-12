@@ -63,7 +63,7 @@ namespace Scripts.Simulation.Model
 			View.transform.localScale = new Vector3(BorderRect.maxX, BorderRect.maxY, 1f);
 		}
 
-		public void SpawnUnit(UnitModel unit)
+		public void SpawnUnit(UnitModel unit, bool randomPos = true)
 		{
 			if (unit == null)
 			{
@@ -71,7 +71,8 @@ namespace Scripts.Simulation.Model
 				return;
 			}
 			
-			unit.SetPosition(GetRandomPosWithinBorder(unit.Width * 0.5f, unit.Height * 0.5f));
+			if(randomPos)
+				unit.SetStartPosition(GetRandomPosWithinBorder(unit.Width * 0.5f, unit.Height * 0.5f));
 			unit.SetView(_unitsRoot);
 		}
 			
@@ -92,9 +93,14 @@ namespace Scripts.Simulation.Model
 			return new Vector2(Random.Range(xMin, xMax), Random.Range(yMin, yMax));
 		}
 
-		public void Restart()
+		public void SetDefault()
 		{
 			_bannedPositions.Clear();
+		}
+
+		public void Restart()
+		{
+			SetDefault();
 		}
 	}
 }

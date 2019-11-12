@@ -17,10 +17,15 @@ namespace Scripts.Simulation.Components
 			Lose?.Invoke(ID);
 		}
 
-		public virtual void Restart()
+		public virtual void SetDefault()
 		{
 			HasLoose = false;
 			ID = 0;
+		}
+
+		public virtual void Restart()
+		{
+			SetDefault();
 		}
 	}
 }

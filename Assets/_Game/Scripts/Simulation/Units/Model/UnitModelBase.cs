@@ -5,8 +5,7 @@ namespace Scripts.Simulation.Units.Model
 {
 	public class UnitModelBase : ModelBase
 	{
-		public Vector2 Position { get; protected set; }
-		public Vector2 Scale { get; protected set; }
+		public Vector2 StartPosition { get; protected set; }
 		public Vector2 Speed { get; protected set; }
 		public float Width { get; protected set; }
 		public float Height { get; protected set; }
@@ -18,6 +17,6 @@ namespace Scripts.Simulation.Units.Model
 		}
 
 
-		public void SetPosition(Vector2 pos) => Position = pos;
+		public void SetStartPosition(Vector2 pos) => StartPosition = pos;
 	}
 }

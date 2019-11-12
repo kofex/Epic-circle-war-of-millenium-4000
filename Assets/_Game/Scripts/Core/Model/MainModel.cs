@@ -1,6 +1,7 @@
 using Scripts.Components;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Model.Base;
+using Scripts.Serialization.Model;
 using Scripts.Simulation.Model;
 using Scripts.UI.Model;
 
@@ -17,6 +18,7 @@ namespace Scripts.Core.Model
 			SingletonModels.TryAddSingletonModel(CreateModel<SettingsModel>()).InitModel();
 			SingletonModels.TryAddSingletonModel(CreateModel<SimulationModel>()).InitModel();
 			SingletonModels.TryAddSingletonModel(CreateModel<MainUIModel>()).InitModel().SetView();
+			SingletonModels.TryAddSingletonModel(CreateModel<SerializationModel>()).InitModel();
 
 			_updatableModels = SingletonModels.GetUpdatableModels();
 				

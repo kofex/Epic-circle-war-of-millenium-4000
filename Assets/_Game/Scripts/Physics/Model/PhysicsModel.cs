@@ -15,7 +15,7 @@ namespace Scripts.Physics.Model
 		protected new PhysicsModel<TUnit> InitModel()
 		{
 			AreaModel.BordersCreated += RegisterBorder;
-			TeamModel<TUnit>.UnitAdded += RegisterUnit;
+			TeamsModel<TUnit>.UnitAdded += RegisterUnit;
 			UnitModel.UnitDeath += (unit)=>RemoveUnit(unit as TUnit);
 			
 			return this;
@@ -52,9 +52,14 @@ namespace Scripts.Physics.Model
 				Units.Remove(unit);
 		}
 
-		public void Restart()
+		public void SetDefault()
 		{
 			Units.Clear();
+		}
+
+		public void Restart()
+		{
+			SetDefault();
 		}
 	}
 }
