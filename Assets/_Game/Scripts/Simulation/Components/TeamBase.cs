@@ -10,7 +10,6 @@ namespace Scripts.Simulation.Components
 
 		public int ID { get; protected set; }
 		public bool HasLoose { get; protected set; }
-		
 		protected virtual void TeamLose()
 		{
 			HasLoose = true;

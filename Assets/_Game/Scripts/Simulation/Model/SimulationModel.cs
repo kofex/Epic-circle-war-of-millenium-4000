@@ -43,7 +43,7 @@ namespace Scripts.Simulation.Model
 			_areaModel = SimulationSingletons.TryAddSingletonModel(CreateModel<AreaModel>())
 				.InitModel()
 				.SetView(null).Model;
-			AreaModel.UnitsSpawned += OnSpawnComplete;
+			TeamsModelBase.UnitsSpawned += OnSpawnComplete;
 
 			_teamsModel = SimulationSingletons.TryAddSingletonModel(CreateModel<TeamsModel<CircleUnitModel>>())
 				.InitModel();
@@ -141,12 +141,14 @@ namespace Scripts.Simulation.Model
 			_simulationTime = container.SimulationTime;
 			_teamsModel.SetSerializedTeams(container.Teams);
 
-			UnitModel unit;
-			do
+			var count = _teamsModel.Teams[0].Units.Count + _teamsModel.Teams[1].Units.Count;
+			_teamsModel.SetMaxUnits(count);
+			
+			for(var i = 0; i < _teamsModel.MaxUnits; i++)
 			{
-				unit = _teamsModel.GetNextUnit();
-				_areaModel.SpawnUnit(unit, false);	
-			} while (unit != null);
+				var unit = _teamsModel.GetNextUnit();
+				_areaModel.SpawnUnit(unit, false);
+			} 
 		}
 	}
 }

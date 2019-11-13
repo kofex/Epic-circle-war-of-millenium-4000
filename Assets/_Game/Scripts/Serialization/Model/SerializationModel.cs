@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Scripts.Serialization.Model
 {
-	public class SerializationModel : ModelBase
+	public class SerializationModel : SerializationModelBase
 	{
 		private const string SIMULATION_KEY = "sim_key";
 		
@@ -21,44 +21,28 @@ namespace Scripts.Serialization.Model
 			return this;
 		}
 		
-		private void Serialize()
+		protected override void Serialize()
 		{
 			var simulation = GameCore.GetModel<SimulationModel>().Serialize();
 			if(simulation == null)
 				return;
-			
-			var formatter = new BinaryFormatter();
-			
-			using (var stream = new MemoryStream())
-			{
-				var serializer = new BinaryFormatter();
-				serializer.Serialize(stream, simulation);
-				var str = Convert.ToBase64String(stream.ToArray());
-				PlayerPrefs.SetString(SIMULATION_KEY, str);
-			}
+
+			PlayerPrefs.SetString(SIMULATION_KEY, BinarySerialize(simulation));
 		}
 
 		
-		private void Deserialize()
+		protected override void Deserialize()
 		{
-			var b = Convert.FromBase64String(PlayerPrefs.GetString(SIMULATION_KEY));
+			var prefData = Convert.FromBase64String(PlayerPrefs.GetString(SIMULATION_KEY));
 
-			if (b.Length == 0)
+			if (prefData.Length == 0)
 			{
 				Debug.Log($"No data in prefs", LogType.Warning);
 				return;
 			}
-			
-			SimulationSerializationContainer simulation;
-			using (var stream = new MemoryStream(b))
-			{
-				var deserializer = new BinaryFormatter();
-				simulation =  deserializer.Deserialize(stream) as SimulationSerializationContainer;
-			}
-			
+
+			var simulation = BinaryDeserialization<SimulationSerializationContainer>(prefData);
 			GameCore.GetModel<SimulationModel>().Deserialize(simulation);
-			
-			
 		}
 	}
 }

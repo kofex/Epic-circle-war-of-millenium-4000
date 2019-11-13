@@ -9,7 +9,7 @@ namespace Scripts.Core
 	{		
 		private static GameCore Instance { get; set; }
 		private MainModel _mainModel;
-		[SerializeField] [Range(0.0f, 100.0f)]private float _gameSpeed = 1.0f;
+		[SerializeField] [Range(0.0f, 100.0f)] private float _gameSpeed = 1.0f;
 		
 		private void Awake()
 		{

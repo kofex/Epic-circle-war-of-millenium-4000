@@ -18,10 +18,9 @@ namespace Scripts.Simulation.Model
 		public static event Action<int, int> UnitCountChange;
 		public List<Team<TUnit>> Teams { get; } = new List<Team<TUnit>>();
 		public int MaxUnits { get; private set; }
-		private int _nextUnitInx;
 		private int _nextTeamInx;
+		private int _unitsGot;
 		private bool _canMove;
-
 		private SettingsModel _gameResources;
 
 		public new TeamsModel<TUnit> InitModel()
@@ -31,8 +30,7 @@ namespace Scripts.Simulation.Model
 
 			CreateTeams();
 			PrepareCircleUnits();
-
-			AreaModel.UnitsSpawned += OnSpawnCompleted;
+			
 			TeamBase.Lose += OnTeamLose;
 			UnitModel.UnitDeath += (unit) => UnitCountChange?.Invoke(Teams[0].Units.Count, Teams[1].Units.Count);
 			return this;
@@ -52,22 +50,30 @@ namespace Scripts.Simulation.Model
 			for (var i = 0; i < MaxUnits; i++)
 			{
 				var unitModel = CreateModel<CircleUnitModel>().InitModel(_gameResources);
-				if (!Teams[i % 2 == 0 ? 0 : 1].TryAddUnit(unitModel as TUnit))
-				{
-					Debug.Log($"{unitModel.UnitId} is already exists", LogType.Warning);
-					continue;
-				}
-
-				UnitAdded?.Invoke(unitModel as TUnit);
+				TryAddUnit(i, unitModel);
 			}
+		}
+
+		private void TryAddUnit(int totalUnitInx, CircleUnitModel unitModel)
+		{
+			if (!Teams[GetTeamIndex(totalUnitInx)].TryAddUnit(unitModel as TUnit))
+			{
+				Debug.Log($"{unitModel.UnitId} is already exists", LogType.Warning);
+				return;
+			}
+
+			UnitAdded?.Invoke(unitModel as TUnit);
 		}
 
 		public UnitModel GetNextUnit()
 		{
-			if (_nextUnitInx >= Teams[0].Units.Count || _nextUnitInx >= Teams[1].Units.Count)
-				return null;
-			return _nextTeamInx++ % 2 == 0 ? Teams[0].Units[_nextUnitInx] : Teams[1].Units[_nextUnitInx++];
+			if (_unitsGot++ >= MaxUnits)
+				OnSpawnCompleted();
+			
+			return Teams[GetTeamIndex(_nextTeamInx++)].GetNextUnit();;
 		}
+
+		private int GetTeamIndex(int totalUnitInx) => totalUnitInx % 2 == 0 ? 0 : 1;
 
 		public override void Update(float dt)
 		{
@@ -80,8 +86,9 @@ namespace Scripts.Simulation.Model
 			base.Update(dt);
 		}
 
-		private void OnSpawnCompleted()
+		protected override void OnSpawnCompleted()
 		{
+			base.OnSpawnCompleted();
 			_canMove = true;
 		}
 
@@ -100,8 +107,11 @@ namespace Scripts.Simulation.Model
 
 			_canMove = false;
 			_nextTeamInx = 0;
-			_nextUnitInx = 0;	
+			_unitsGot = 0;
+			MaxUnits = _gameResources.GameConfigs.GameConfig.numUnitsToSpawn;
 		}
+
+		public void SetMaxUnits(int max) => MaxUnits = max;
 
 		public override void Restart()
 		{
@@ -117,11 +127,22 @@ namespace Scripts.Simulation.Model
 			{
 				var col = $"#{team.TeamColor}";
 				ColorUtility.TryParseHtmlString(col, out var color);
-				var deserializedTeam = new Team<TUnit>(color, inx++);
-				deserializedTeam.Deserialize(team, (unit) => UnitAdded?.Invoke(unit));
-				Teams.Add(deserializedTeam);
+				Teams.Add(new Team<TUnit>(color, inx++));
 			}
-			
+
+			var maxUnits = teams[0].Units.Count + teams[1].Units.Count;
+			var unitInx = 0;
+			for (var i = 0; i < maxUnits; i++)
+			{
+				var teamInx = GetTeamIndex(i);
+				
+				var deserializedUnit = CreateModel<CircleUnitModel>();
+				deserializedUnit.Deserialize(teams[teamInx].Units[unitInx]);
+				if (teamInx == 1)
+					unitInx++;
+				
+				TryAddUnit(i, deserializedUnit);
+			}
 		}
 	}
 }

@@ -18,6 +18,7 @@ namespace Scripts.Simulation.Units.Model
 		public UnitView View => ThisView;
 		protected Color Color { get; private set; }
 		public void SetColor(Color color) => Color = color;
+		protected bool IsDead { get; private set; }
 		
 		protected UnitView ThisView;
 
@@ -40,6 +41,7 @@ namespace Scripts.Simulation.Units.Model
 		
 		protected virtual void OnDeath()
 		{
+			IsDead = true;
 			UnitDeath?.Invoke(this);
 			Object.Destroy(View.gameObject);
 		}
@@ -56,7 +58,7 @@ namespace Scripts.Simulation.Units.Model
 
 		public virtual UnitSerializationContainer Serialize()
 		{
-			return new UnitSerializationContainer();
+			return IsDead || View == null ? null : new UnitSerializationContainer();
 		}
 
 		public virtual void Deserialize(UnitSerializationContainer container)

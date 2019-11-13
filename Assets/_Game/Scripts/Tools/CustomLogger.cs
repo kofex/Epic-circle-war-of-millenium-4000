@@ -33,7 +33,7 @@ namespace Scripts
 					break;
 			}
 			
-			var str = $"[{ColoredLogType(type, color)} {message}]";
+			var str = $"[{ColoredLogType(type, color)}] {message}";
 			if (context)
 				UnityEngine.Debug.Log(str);
 			else

@@ -87,6 +87,8 @@ namespace Scripts.Simulation.Units.Model
 
 		public override UnitSerializationContainer Serialize()
 		{
+			if (IsDead || View == null)
+				return null;
 			return new UnitSerializationContainer(View.transform.position, CurrentSpeed, Speed, _radiusToDeath, Radius,
 				UnitId);
 		}

@@ -15,7 +15,6 @@ namespace Scripts.Simulation.Model
 	public class AreaModel : ModelBase, IModelWithVIew<AreaView>, IRestartable
 	{
 		private const string UNITS_ROOT_NAME = "Units Root";
-		public static event Action UnitsSpawned;
 		public static event Action<BorderRect> BordersCreated;
 
 		public AreaView View => ThisView;
@@ -66,10 +65,7 @@ namespace Scripts.Simulation.Model
 		public void SpawnUnit(UnitModel unit, bool randomPos = true)
 		{
 			if (unit == null)
-			{
-				UnitsSpawned?.Invoke();
 				return;
-			}
 			
 			if(randomPos)
 				unit.SetStartPosition(GetRandomPosWithinBorder(unit.Width * 0.5f, unit.Height * 0.5f));

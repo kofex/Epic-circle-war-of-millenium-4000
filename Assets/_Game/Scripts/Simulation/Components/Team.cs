@@ -14,6 +14,7 @@ namespace Scripts.Simulation.Components
 		public List<TUnit> Units { get; } = new List<TUnit>();
 		public Color TeamColor { get; }
 		
+		private int _nextUnitInx;
 		public Team(Color color, int inx)
 		{
 			TeamColor = color;
@@ -42,9 +43,12 @@ namespace Scripts.Simulation.Components
 				TeamLose();
 		}
 
+		public TUnit GetNextUnit() => _nextUnitInx < Units.Count ? Units[_nextUnitInx++] : null;
+
 		public override void SetDefault()
 		{
 			UnitModel.UnitDeath -= RemoveUnit;
+			_nextUnitInx = 0;
 			
 			foreach (var unit in Units)
 				unit.Restart();
@@ -63,24 +67,18 @@ namespace Scripts.Simulation.Components
 		{
 			var units = new List<UnitSerializationContainer>();
 			foreach (var unit in Units)
-				units.Add(unit.Serialize());
+			{
+				var serialized = unit.Serialize();
+				if(serialized == null)
+					continue;
+				units.Add(serialized);
+			}
 					
 			return new TeamSerializationContainer(ColorUtility.ToHtmlStringRGB(TeamColor), units);
 		}
 
 		public void Deserialize(TeamSerializationContainer container)
 		{
-		}
-
-		public void Deserialize(TeamSerializationContainer container, Action<TUnit> onUnitAdded)
-		{
-			foreach (var unit in container.Units)
-			{
-				var deserializedUnit = ModelBase.CreateModel<TUnit>();
-				deserializedUnit.Deserialize(unit);
-				TryAddUnit(deserializedUnit);
-				onUnitAdded?.Invoke(deserializedUnit);
-			} 
 		}
 	}
 }
