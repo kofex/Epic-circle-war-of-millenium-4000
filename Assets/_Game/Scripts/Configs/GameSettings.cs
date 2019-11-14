@@ -11,6 +11,7 @@ namespace Scripts.Configs
 		public string ExtConfigName = "Configs.txt";
 		public CacheBehaviour[] Prefabs;
 		public Vector2 BorderOffset;
+		public Vector2 BorderBounceRandomOffset;
 		public float DeathRadius = 0.2f;
 		public float UiOffset = 4.0f;
 

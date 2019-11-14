@@ -18,7 +18,7 @@ namespace Scripts.Physics.Model
 				var unitPos = unit.View.transform.position;
 				var resVec = Vector2.zero;
 
-				var  range = Random.Range(-0.3f, 0.3f);
+				var range = Random.Range(BorderBounceOffset.x, BorderBounceOffset.y);
 				if (unitPos.x - unit.Radius < BorderRect.minX)
 				{
 					resVec += new Vector2(1f, range);

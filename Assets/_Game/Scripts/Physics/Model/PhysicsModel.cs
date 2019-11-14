@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Scripts.Core;
+using Scripts.Core.Model;
 using Scripts.Core.Model.Base;
 using Scripts.Simulation;
 using Scripts.Simulation.Model;
@@ -10,6 +12,7 @@ namespace Scripts.Physics.Model
 	public class PhysicsModel<TUnit> : PhysicsBase, IRestartable where TUnit : UnitModel, new()
 	{
 		protected BorderRect BorderRect;
+		protected Vector2 BorderBounceOffset;
 		protected List<TUnit> Units = new List<TUnit>();
 
 		protected new PhysicsModel<TUnit> InitModel()
@@ -17,6 +20,7 @@ namespace Scripts.Physics.Model
 			AreaModel.BordersCreated += RegisterBorder;
 			TeamsModel<TUnit>.UnitAdded += RegisterUnit;
 			UnitModel.UnitDeath += (unit)=>RemoveUnit(unit as TUnit);
+			BorderBounceOffset = GameCore.GetModel<SettingsModel>().GameSettings.BorderBounceRandomOffset;
 			
 			return this;
 		}

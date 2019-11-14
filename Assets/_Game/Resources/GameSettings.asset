@@ -22,5 +22,6 @@ MonoBehaviour:
   - {fileID: 1241496473284042469, guid: aa5225ce83ae5aa46923fec7db464745, type: 3}
   - {fileID: 2768670818575591215, guid: a30caa15cf79f8741b8d641dc0e06864, type: 3}
   BorderOffset: {x: 0.2, y: 0.2}
+  BorderBounceRandomOffset: {x: -0.015, y: 0.015}
   DeathRadius: 0.2
   UiOffset: 2
