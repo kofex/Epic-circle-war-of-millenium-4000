@@ -16,9 +16,9 @@ namespace Scripts.Simulation.Units.Model
 		protected static int ID;
 		
 		public UnitView View => ThisView;
-		protected Color Color { get; private set; }
+		public Color Color { get; private set; }
 		public void SetColor(Color color) => Color = color;
-		protected bool IsDead { get; private set; }
+		protected bool IsDead { get; set; }
 		
 		protected UnitView ThisView;
 
@@ -35,7 +35,7 @@ namespace Scripts.Simulation.Units.Model
 			View.transform.Translate(CurrentSpeed * dt);
 		}
 
-		public virtual void OnCollision(Vector2 collisionReflection, object other = null)
+		public virtual void OnCollision(Vector2 collisionReflection)
 		{
 		}
 		
@@ -45,6 +45,14 @@ namespace Scripts.Simulation.Units.Model
 			UnitDeath?.Invoke(this);
 			Object.Destroy(View.gameObject);
 		}
+
+		protected virtual bool CheckIsDead()
+		{
+			Debug.Log($"Check is dead base call [not implemented]", LogType.MissCall);
+			return false;
+		}
+		
+		public void KillUnit() => IsDead = true;
 
 		public void SetDefault()
 		{

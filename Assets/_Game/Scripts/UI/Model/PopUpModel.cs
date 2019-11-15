@@ -37,11 +37,11 @@ namespace Scripts.UI.Model
 
 		public void Pop(float simulationTime, Color winColor)
 		{
-			SetActive(true);
+			View.Canvas.enabled = true;
 			SetUpResults(simulationTime, winColor);
 		}
 
-		private void UnPop() => SetActive(false);
+		public void UnPop() => View.Canvas.enabled = false;
 		private void SetActive(bool isActive) => View.Canvas.enabled = isActive;
 
 		private void SetUpResults(float simulationTime, Color winColor)

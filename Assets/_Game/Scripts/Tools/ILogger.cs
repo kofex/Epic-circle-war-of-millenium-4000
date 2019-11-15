@@ -5,7 +5,8 @@ namespace Scripts
 		None,
 		Warning,
 		Error,
-		Info
+		Info,
+		MissCall,
 	}
 
 	public interface ILogger

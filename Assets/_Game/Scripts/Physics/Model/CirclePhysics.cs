@@ -1,3 +1,5 @@
+using Scripts.Core;
+using Scripts.Core.Model;
 using Scripts.Simulation.Units.Model;
 using UnityEngine;
 
@@ -5,8 +7,10 @@ namespace Scripts.Physics.Model
 {
 	public class CirclePhysics : PhysicsModel<CircleUnitModel>
 	{
+		private float _additionShrinkDisplacement;
 		public new CirclePhysics InitModel()
 		{
+			_additionShrinkDisplacement = GameCore.GetModel<SettingsModel>().GameSettings.AdditionShrinkDisplacement;
 			base.InitModel();
 			return this;
 		}
@@ -64,10 +68,30 @@ namespace Scripts.Physics.Model
 					if (dist > radiiSum)
 						continue;
 
-					unit.OnCollision(distVector.normalized, target);
-					target.OnCollision(-distVector.normalized, unit);
+					if (unit.Color == target.Color)
+					{
+						CollideSame(unit, target, distVector);
+					}
+					else
+					{
+						CollideDifferent(unit, target, distVector);
+					}
 				}
 			}
+		}
+		
+
+		private void CollideSame(CircleUnitModel unit, CircleUnitModel target, Vector2 distVector)
+		{
+			unit.OnCollision(distVector.normalized);
+			target.OnCollision(-distVector.normalized);
+		}
+
+		private void CollideDifferent(CircleUnitModel unit, CircleUnitModel target, Vector2 distVector)
+		{
+			var shrink = distVector.magnitude * (1 + _additionShrinkDisplacement) - unit.Radius - target.Radius;
+			unit.OnCollision(shrink, target);
+			target.OnCollision(shrink, unit);
 		}
 	}
 }

@@ -55,6 +55,9 @@ namespace Scripts.Simulation.Model
 			
 			TeamBase.Lose += inx =>
 			{
+				if(_isGameOver)
+					return;
+				
 				_isGameOver = true;
 				SimulationEnd?.Invoke(_simulationTime, _teamsModel.TheVictoriousTeam.TeamColor);
 			};
@@ -100,6 +103,9 @@ namespace Scripts.Simulation.Model
 
 		public void Restart()
 		{
+			if(!_isSpawned)
+				return;
+			
 			SimulationRestartBegin?.Invoke();
 
 			SetDefault();

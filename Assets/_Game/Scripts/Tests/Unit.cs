@@ -21,7 +21,7 @@ namespace Scripts.Tests
 
 		private void Start()
 		{
-			_speedVector = new Vector2(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f));
+			_speedVector = new Vector2(Random.Range(-0.8f, -0.8f), Random.Range(-0.8f, 0.8f));
 			_newSpeedVector = _speedVector;
 		}
 
@@ -44,8 +44,13 @@ namespace Scripts.Tests
 		{
 			_collisionReflection.x = collisionReflection.x;
 			_collisionReflection.y = collisionReflection.y;
-		
-			_newSpeedVector = _collisionReflection * _speedVector.magnitude;
+
+			var vn = Vector2.Dot(_speedVector, _collisionReflection);
+			var nn = Vector2.Dot(_collisionReflection, _collisionReflection);
+			
+			var speed = _newSpeedVector -  2 * (vn /nn )* _collisionReflection;
+			_newSpeedVector = speed.normalized * _speedVector.magnitude; 
+			UnityEngine.Debug.Log($"{_newSpeedVector}");
 		
 			timer = 0;
 		}

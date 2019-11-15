@@ -28,6 +28,9 @@ namespace Scripts
 				case LogType.Info:
 					color = Color.blue;
 					break;
+				case LogType.MissCall:
+					color = Color.cyan;
+					break;
 				default:
 					color = Color.white;
 					break;

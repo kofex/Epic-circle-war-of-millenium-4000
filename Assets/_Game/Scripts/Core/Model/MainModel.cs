@@ -11,7 +11,9 @@ namespace Scripts.Core.Model
 	{
 		public SingletonModelsContainer SingletonModels { get; } = new SingletonModelsContainer();
 
-		private IUpdatable[] _updatableModels; 
+		private float _speedMultipliyer = 1;
+		private IUpdatable[] _updatableModels;
+		
 
 		public new MainModel InitModel()
 		{
@@ -27,10 +29,16 @@ namespace Scripts.Core.Model
 
 		public void Update(float dt)
 		{
+			dt *= _speedMultipliyer;
 			foreach (var model in _updatableModels)
 			{
 				model.Update(dt);
 			}
+		}
+
+		public void SpeedChange(float speed)
+		{
+			_speedMultipliyer = speed;
 		}
 	}
 }

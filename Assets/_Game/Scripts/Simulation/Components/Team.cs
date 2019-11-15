@@ -19,7 +19,6 @@ namespace Scripts.Simulation.Components
 		{
 			TeamColor = color;
 			ID = inx;
-			UnitModel.UnitDeath += RemoveUnit;
 		}
 		
 		public bool TryAddUnit(TUnit unit)
@@ -32,13 +31,18 @@ namespace Scripts.Simulation.Components
 			return true;
 		}
 		
-		private void RemoveUnit(UnitModel unit) => RemoveUnit(unit as TUnit);
+		public void RemoveUnit(UnitModel unit) => RemoveUnit(unit as TUnit);
 		
 
 		private void RemoveUnit(TUnit unit)
 		{
-			if(Units.Contains(unit))
-				Units.Remove(unit);
+			if(!Units.Contains(unit))
+				return;
+			
+			if(Units.Count == 0)
+				return;
+			
+			Units.Remove(unit);
 			if(Units.Count == 0)
 				TeamLose();
 		}
@@ -47,7 +51,6 @@ namespace Scripts.Simulation.Components
 
 		public override void SetDefault()
 		{
-			UnitModel.UnitDeath -= RemoveUnit;
 			_nextUnitInx = 0;
 			
 			foreach (var unit in Units)

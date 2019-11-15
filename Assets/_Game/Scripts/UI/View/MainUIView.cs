@@ -22,6 +22,9 @@ namespace Scripts.UI.View
 		[SerializeField] private ButtonWithText _loadGameBtn;
 		public ButtonWithText LoadGameBtn => _loadGameBtn;
 		
+		[SerializeField] private Slider _speedSlider;
+		public Slider SpeedSlider => _speedSlider;
+		
 		[SerializeField] private PopUpView _popUp;
 		public PopUpView PopUp => _popUp;
 		 

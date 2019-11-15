@@ -32,7 +32,7 @@ namespace Scripts.Simulation.Model
 			PrepareCircleUnits();
 			
 			TeamBase.Lose += OnTeamLose;
-			UnitModel.UnitDeath += (unit) => UnitCountChange?.Invoke(Teams[0].Units.Count, Teams[1].Units.Count);
+			UnitModel.UnitDeath += RemoveUnit;
 			return this;
 		}
 
@@ -86,6 +86,16 @@ namespace Scripts.Simulation.Model
 			base.Update(dt);
 		}
 
+		private void RemoveUnit(UnitModel unit)
+		{
+			var team = Teams.Find(entry => entry.Units.Contains(unit)); 
+			if(team == null)
+				return;
+			
+			team.RemoveUnit(unit);
+			UnitCountChange?.Invoke(Teams[0].Units.Count, Teams[1].Units.Count);
+		}
+
 		protected override void OnSpawnCompleted()
 		{
 			base.OnSpawnCompleted();
@@ -95,7 +105,10 @@ namespace Scripts.Simulation.Model
 		private void OnTeamLose(int id)
 		{
 			TheVictoriousTeam = Teams.FirstOrDefault(team => !team.HasLoose);
-			Debug.Log($"Victory to {TheVictoriousTeam?.ID}");
+			if(TheVictoriousTeam == default)
+				return;
+			
+			Debug.Log($"Victory to {TheVictoriousTeam?.ID}", LogType.Info);
 		}
 
 		public override void SetDefault()

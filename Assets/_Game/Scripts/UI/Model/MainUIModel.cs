@@ -35,8 +35,14 @@ namespace Scripts.UI.Model
 			View.TeamFront.color = teams[0].TeamColor;
 			View.TeamBack.color = teams[1].TeamColor;
 			SetTeamsBalance(teams[0].Units.Count, teams[1].Units.Count);
+			View.SpeedSlider.value = 1f;
+			View.SpeedSlider.minValue = 0f;
+			View.SpeedSlider.maxValue = GameCore.GetModel<SettingsModel>().GameSettings.MaxSpeedScale;
+			View.SpeedSlider.onValueChanged.AddListener(GameCore.GetMainModel().SpeedChange);
 			
 			SimulationModel.SimulationEnd += popUpModel.Pop;
+			NewBtnClick += popUpModel.UnPop;
+			LoadBtnClick += popUpModel.UnPop;
 			SetButtons();
 			return View;
 		}
@@ -55,7 +61,8 @@ namespace Scripts.UI.Model
 		{
 			var rectTransform = View.TeamFront.rectTransform;
 			var size = rectTransform.sizeDelta;
-			size.x = _maxTeamBalanceWidth * teamCountOne / (teamCountOne + teamCountTwo);
+			var divider = teamCountOne + teamCountTwo;
+			size.x = _maxTeamBalanceWidth * teamCountOne / (divider == 0 ? 2 : divider);
 			rectTransform.sizeDelta = size;
 		}
 

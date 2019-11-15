@@ -8,8 +8,7 @@ namespace Scripts.Core
 	public class GameCore : MonoBehaviour
 	{		
 		private static GameCore Instance { get; set; }
-		private MainModel _mainModel;
-		[SerializeField] [Range(0.0f, 100.0f)] private float _gameSpeed = 1.0f;
+		private static MainModel _mainModel;
 		
 		private void Awake()
 		{
@@ -25,12 +24,14 @@ namespace Scripts.Core
 
 		private void Update()
 		{
-			_mainModel.Update(Time.deltaTime * _gameSpeed);
+			_mainModel.Update(Time.deltaTime);
 		}
 
+		public static MainModel GetMainModel() => _mainModel;
+		
 		public static T GetModel<T>() where T : ModelBase
 		{
-			return Instance._mainModel.SingletonModels.TryGetSingletonModel<T>();
+			return _mainModel.SingletonModels.TryGetSingletonModel<T>();
 		}
 		
 		public static T GetModelFromSimulations<T>() where T : ModelBase

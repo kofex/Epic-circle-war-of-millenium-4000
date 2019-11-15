@@ -59,31 +59,38 @@ namespace Scripts.Simulation.Units.Model
 
 		private void CheckForDeath()
 		{
-			if (Radius > _radiusToDeath)
+			if (!IsDead) 
 				return;
 			
 			OnDeath();
-			TeamsModelBase.UpdateEnd -= CheckForDeath;
 		}
 
-		public override void OnCollision(Vector2 collisionReflection, object other = null)
+		protected override bool CheckIsDead() => Radius <= _radiusToDeath;
+
+		protected override void OnDeath()
+		{
+			TeamsModelBase.UpdateEnd -= CheckForDeath;
+			base.OnDeath();
+		}
+
+		public override void OnCollision(Vector2 collisionReflection)
 		{
 			CurrentSpeed = collisionReflection;
 			CurrentSpeed *= Speed.magnitude;
-			
-			if (other == null || other.GetType() != GetType())
-				return;
-			
-			var otherUnit = other as CircleUnitModel;
-			if(otherUnit.Color == Color)
-				return;
-			
-			var dist = PhysicsBase.GetDistance(View.transform.position, otherUnit.View.transform.position).magnitude;
-			var shrink = dist - Radius - otherUnit.Radius;
-			
-			Radius += shrink;
-			View.transform.localScale = new Vector3(Radius*2f, Radius*2f, View.transform.localScale.z);
 		}
+
+		public void OnCollision(float shrink, CircleUnitModel otherUnit)
+		{
+			Radius += shrink;
+			if(!CheckIsDead())
+				View.transform.localScale = new Vector3(Radius*2f, Radius*2f, View.transform.localScale.z);
+			else
+			{
+				IsDead = true;
+				otherUnit.KillUnit();
+			}
+		}
+
 
 		public override UnitSerializationContainer Serialize()
 		{
